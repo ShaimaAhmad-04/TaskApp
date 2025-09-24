@@ -20,6 +20,8 @@ namespace To_Do_App
             modelBuilder.Entity<User>().HasData(
              new User { Id = 1, Name = "Admin", IsAdmin = true,Email = "Admin@outlook.com", HashedPassword = "$2a$11$uWv8KLbUXU91vzLQTSKcqerESQHThdPrNKKk6LQ8gEAZY7TCEE6GW" }
              );
+
+            modelBuilder.Entity<User>().HasIndex(x => x.Email).IsUnique();
         }
 
         public ToDoApp_DbContext(DbContextOptions<ToDoApp_DbContext> option):base(option)

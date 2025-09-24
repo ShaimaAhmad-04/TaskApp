@@ -1,0 +1,31 @@
+/* You can add global styles to this file, and also import other style files */
+
+.navbar {
+    background-color: #d8e4e5;
+}
+
+.logo {
+    width: 6rem;
+    height: 6rem;
+    display: inline-block;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+
+}
+.navbar-buttons{
+    display: flex
+;
+}
+.signUp-button {
+    display: flex;
+    align-items: center;
+    width: 122px;
+    border-radius: 26px;
+    font-size: 20px;
+    color: deepskyblue;
+}
+
+.signUp-button:hover {
+    color: white;
+}

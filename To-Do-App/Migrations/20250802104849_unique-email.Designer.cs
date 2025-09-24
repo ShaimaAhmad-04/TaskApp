@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using To_Do_App;
 
@@ -11,9 +12,11 @@ using To_Do_App;
 namespace To_Do_App.Migrations
 {
     [DbContext(typeof(ToDoApp_DbContext))]
-    partial class ToDoApp_DbContextModelSnapshot : ModelSnapshot
+    [Migration("20250802104849_unique-email")]
+    partial class uniqueemail
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

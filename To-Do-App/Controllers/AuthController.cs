@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -23,27 +24,52 @@ namespace To_Do_App.Controllers
         }
 
         [HttpPost("SignUp")]
-        public IActionResult SignUp(SaveUserDTO saveUserDTO)
+        public IActionResult SignUp([FromBody] SaveUserDTO saveUserDTO)
         {
-            var user = new User
+            try
             {
-                Id = 0,
-                Email = saveUserDTO.Email,
-                Name = saveUserDTO.Name,
-                HashedPassword = BCrypt.Net.BCrypt.HashPassword($"{saveUserDTO.Name}@123"),
-                IsAdmin = false
-            };
-            _DbContext.Users.Add(user);
-            _DbContext.SaveChanges();
+                var userCheck = _DbContext.Users.FirstOrDefault(x => x.Email == saveUserDTO.Email);
 
-            return Ok();
-         }
+                // email not used 
+                 if (userCheck == null)
+                {
+                    var user = new User
+                    {
+                        Id = 0,
+                        Email = saveUserDTO.Email,
+                        Name = saveUserDTO.Name,
+                        HashedPassword = BCrypt.Net.BCrypt.HashPassword($"{saveUserDTO.Name}@123"),
+                        IsAdmin = false
+                    };
 
-        [AllowAnonymous]
+
+                    _DbContext.Users.Add(user);
+                    _DbContext.SaveChanges();
+
+
+                    return Ok();
+                }
+                 //email used 
+                else
+                {
+                    return BadRequest("Email already used");
+                }
+
+            }
+
+
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+
         [HttpPost("LogIn")]
-        public IActionResult LogIn([FromBody] UserLogInDTO userLogInDTO) { 
-
-            var userCheck = _DbContext.Users.FirstOrDefault(x => x.Email == userLogInDTO.Email);
+        public IActionResult LogIn([FromBody] UserLogInDTO userLogInDTO)
+        {
+            try 
+          {  var userCheck = _DbContext.Users.FirstOrDefault(x => x.Email == userLogInDTO.Email);
 
             if (userCheck == null)
                 return BadRequest("Invalid username or password");
@@ -54,15 +80,21 @@ namespace To_Do_App.Controllers
 
             var token = GenerateToken(userCheck);
 
-            return Ok(token);
+                return Ok(token); 
+            }
+
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
 
         }
 
         private string GenerateToken(User user)
         {
-            var claims = new List<Claim>() 
+            var claims = new List<Claim>()
             {
-           
+
             new Claim (ClaimTypes.NameIdentifier , user.Id.ToString()),
             new Claim(ClaimTypes.Email, user.Email),
             new Claim(ClaimTypes.Name, user.Name)
@@ -80,14 +112,14 @@ namespace To_Do_App.Controllers
             var settings = new JwtSecurityToken(
                 claims: claims,
                 signingCredentials: credentials,
-                expires : DateTime.UtcNow.AddDays(1)
+                expires: DateTime.UtcNow.AddDays(1)
                 );
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.WriteToken(settings);
 
             return token;
-          
+
         }
     }
 }
