@@ -1,29 +1,31 @@
- <div class="d-flex justify-content-center">
+<div class="container-fluid">
+    <div class="tasks-box">
+        <div class="tasks-card">
+            @for(task of Tasks ; track task)
+            {
+            <div class="card">
+                <span class="task-title ms-1">{{task}}</span>
+                <div class="btn-group" role="group"
+                    aria-label="Basic mixed styles example">
 
-    <table class="table table-primary">
-        <thead>
-            <th>x</th>
+                    <button type="button" class="btn"
+                        style="color: rgb(30, 207, 30);"><i
+                            class="bi bi-check-circle"></i> </button>
 
-        </thead>
-        <tbody>
-            <tr>
-                <div class="card">HI
-                    HI
-                    <span>
-                        <button type="button"
-                            class="btn btn-success">Success</button>
-                    </span>
-                    <span>
-                        <button type="button"
-                            class="btn btn-danger">Danger</button>
-                    </span>
-                    <span>
-                        <button type="button"
-                            class="btn btn-warning">Warning</button>
-                    </span>
+                    <button type="button" class="btn "> <i
+                            class="bi bi-pen"></i></button>
+
+                    <button type="button" class="btn " style="color: red;"> <i
+                            class="bi bi-trash"></i></button>
+
                 </div>
-            </tr>
 
-        </tbody>
-    </table>
+            </div>
+            }
+        </div>
+        <div class="d-flex justify-content-center ">
+            <button type="button"
+                class="btn add-button mb-1">Add a Task</button>
+        </div>
+    </div>
 </div>

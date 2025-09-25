@@ -1,3 +1,49 @@
-tr{
-    border-radius: 205px;
+.card {
+    display: flex;
+    margin: 1%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.tasks-card {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    margin: 1%;
+}
+
+.add-button {
+    margin-top: 17%;
+    width: 62%;
+    border-radius: 16px;
+    background: #685fd1a1;
+    border-color: #655dcd;
+}
+
+.add-button:hover {
+    background: #9490c2a1;
+
+}
+
+.tasks-box {
+    border-radius: 7px;
+    height: 80vh;
+    /* background-color: #e2d1d178; */
+    background-color: #e2d1d1;
+    /* remove the alpha */
+
+}
+
+button:hover {
+    background-color: #8080801a;
+}
+
+.task-title {
+    font-size: 17px;
+}
+.dropdown-toggle::after {
+    display: none;  /* removes the arrow */
 }

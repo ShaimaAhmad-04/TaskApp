@@ -1,21 +1,38 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid navbar">
-    <a class="navbar-brand ms-2" href="#"> <!-- review the href -->
-      <img src="assets/logo.png"
-        class="logo">
-    </a>
-
-    <div class="navbar-buttons">
-      <button type="button" class="btn btn-outline-info signUp-button me-2">
-        <i class="bi bi-gear me-2" style="font-size: 21px;"></i>
-        Setting
-      </button>
-
-      <button type="button" class="btn btn-outline-info signUp-button me-2">
-        <i class="bi bi-person-circle me-2" style="font-size: 21px;"></i>
-        Sign in
-      </button>
+<div class="container-fluid">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="logo">
+      <a class="navbar-brand ms-2" href="#"> <!-- review the href -->
+        <img src="assets/logo1.png"
+          class="logo">
+      </a>
     </div>
-  </div>
-</nav>
+
+    <div class="dropdown ms-auto m-1">
+      <button type="button" class="btn btn-secondary dropdown-toggle"
+        data-bs-toggle="dropdown" aria-expanded="false"
+        style="background-color: #403c91;">
+        <i class="bi bi-list" style="font-size: 25px;"></i>
+      </button>
+      <!-- dropdown menus items -->
+      <ul class="dropdown-menu dropdown-menu-end">
+        <li class="mb-3"><a class="dropdown-item" href="#">Edit profile</a></li>
+
+        <li class="mb-3">
+          <div class="form-check form-switch dropdown-item "
+            style="display: flex; justify-content: space-between;">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Night
+              Mode</label>
+
+            <input class="form-check-input" type="checkbox"
+              id="flexSwitchCheckDefault">
+          </div>
+        </li>
+        <li style="margin-top: 22%;"><button type="button"
+            class="btn dropdown-item">Sign Out <i
+              class="bi bi-box-arrow-left"></i></button></li>
+      </ul>
+
+    </div>
+  </nav>
+</div>
 <app-home-page></app-home-page>

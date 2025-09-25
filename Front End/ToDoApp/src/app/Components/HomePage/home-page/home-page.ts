@@ -8,4 +8,6 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
+   Tasks = ['Study Algo','Clean the room','Wash the dishes']
+
 }
