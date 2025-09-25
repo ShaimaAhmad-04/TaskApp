@@ -39,7 +39,10 @@ namespace To_Do_App.Model;
                     priorityId = taskItem.PriorityId,
                     isComplete = taskItem.isComplete,
                     UserID = (long)taskItem.UserId,
-                    UserName = taskItem.User.Name  };
+                    UserName = taskItem.User.Name  ,
+                    Deadline = taskItem.Deadline,
+               };
+            
 
             if (task == null)
                 return BadRequest("No tasks exist");
@@ -71,7 +74,8 @@ namespace To_Do_App.Model;
                        priorityId = taskItem.PriorityId,
                        isComplete = taskItem.isComplete,
                        UserID = (long)taskItem.UserId,
-                       UserName = taskItem.User.Name
+                       UserName = taskItem.User.Name,
+                       Deadline = taskItem.Deadline,
                    };
 
             if (task == null)

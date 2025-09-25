@@ -8,6 +8,10 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-   Tasks = ['Study Algo','Clean the room','Wash the dishes']
+   Tasks = []
+
+   openModal(id:number){
+    //find the task based on its id 
+   }
 
 }

@@ -1,49 +1,71 @@
 .card {
+
     display: flex;
     margin: 1%;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    font-family: cursive;
+
+}
+
+.card:hover {
+    cursor: pointer;
+}
+
+.task-card {
+    display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
 }
 
-.tasks-card {
-    display: flex;
-    flex-direction: column;
-    /* justify-content: center; */
-    align-items: center;
-    margin: 1%;
-}
-
-.add-button {
-    margin-top: 17%;
-    width: 62%;
-    border-radius: 16px;
-    background: #685fd1a1;
-    border-color: #655dcd;
-}
-
-.add-button:hover {
-    background: #9490c2a1;
-
-}
-
-.tasks-box {
-    border-radius: 7px;
-    height: 80vh;
-    /* background-color: #e2d1d178; */
-    background-color: #e2d1d1;
-    /* remove the alpha */
-
-}
 
 button:hover {
     background-color: #8080801a;
 }
 
-.task-title {
-    font-size: 17px;
-}
+
+
 .dropdown-toggle::after {
-    display: none;  /* removes the arrow */
+    display: none;
+    /* removes the arrow */
+}
+
+/* ----------------------------------- */
+.card-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-body,
+.card-header,
+.card-footer {
+    width: 100%
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.title {
+    border: none;
+
+    font-weight: bold;
+    color: #46419b;
+}
+
+.card-footer {
+    font-family: cursive;
+}
+
+.modal-info {
+    display: flex;
+    justify-content: space-around;
+}
+
+.modal-info>p{
+        width: 33%;
 }

@@ -51,7 +51,6 @@ namespace To_Do_App.Controllers
                     return BadRequest("Email already exists");
 
                 user.Email = updateUserDTO.Email;
-                user.Name = updateUserDTO.Name;
                 user.HashedPassword = BCrypt.Net.BCrypt.HashPassword(updateUserDTO.HashedPassword);
 
                 dbContext.SaveChanges();
