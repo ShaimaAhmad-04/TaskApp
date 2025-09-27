@@ -38,8 +38,8 @@ namespace To_Do_App.Model;
                     priorityName = priority.Name,
                     priorityId = taskItem.PriorityId,
                     isComplete = taskItem.isComplete,
-                    UserID = (long)taskItem.UserId,
-                    UserName = taskItem.User.Name  ,
+                    //UserID = (long)taskItem.UserId,
+                    //UserName = taskItem.User.Name  ,
                     Deadline = taskItem.Deadline,
                };
             
@@ -73,8 +73,8 @@ namespace To_Do_App.Model;
                        priorityName = taskItem.lookup.Name,
                        priorityId = taskItem.PriorityId,
                        isComplete = taskItem.isComplete,
-                       UserID = (long)taskItem.UserId,
-                       UserName = taskItem.User.Name,
+                       //UserID = (long)taskItem.UserId,
+                       //UserName = taskItem.User.Name,
                        Deadline = taskItem.Deadline,
                    };
 

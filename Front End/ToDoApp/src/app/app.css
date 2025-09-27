@@ -1,16 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
 
 .navbar {
-    
+
     margin-top: 1%;
     border-radius: 40px;
-
+    display: flex;
+    justify-content: space-between;
 
 }
 
+.login {
+    font-size: 1.5rem;
+    color: white;
+    text-decoration: none ;
+    font-family: cursive;
+}
+
+.login:hover {
+    text-decoration: underline;
+    font-size: 1.6rem;
+}
 
 .logo {
-     font-size: 4rem;
+    font-size: 4rem;
     font-family: cursive;
     color: white;
 

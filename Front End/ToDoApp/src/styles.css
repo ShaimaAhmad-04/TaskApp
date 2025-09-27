@@ -1,8 +1,10 @@
-body{
-background:linear-gradient(to bottom,#1b1b56, #786deb)
+body {
+     background: linear-gradient(to bottom, #1b1b56, #786deb)
 }
-html, body {
+
+html,
+body {
      height: 100vh;
-     background:linear-gradient(to bottom,#1b1b56, #786deb)
+     background: linear-gradient(to bottom, #1b1b56, #786deb) ;
 
 }

@@ -1,3 +1,6 @@
+
+
+
 .card {
 
     display: flex;
@@ -20,10 +23,6 @@
 }
 
 
-button:hover {
-    background-color: #8080801a;
-}
-
 
 
 .dropdown-toggle::after {
@@ -36,6 +35,10 @@ button:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.tasks-list {
+    display: flex;
 }
 
 .card-body,
@@ -52,9 +55,19 @@ button:hover {
 
 .title {
     border: none;
-
     font-weight: bold;
     color: #46419b;
+    font-family: cursive;
+
+}
+
+label {
+    color: #46419b;
+    font-family: cursive;
+}
+
+.required {
+    border-color: red;
 }
 
 .card-footer {
@@ -66,6 +79,46 @@ button:hover {
     justify-content: space-around;
 }
 
-.modal-info>p{
-        width: 33%;
+.modal-info>p {
+    width: 33%;
+}
+
+.pagination-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    /* right align, change to center or flex-start */
+    width: 100%;
+    margin-top: 20px;
+}
+
+.high {
+    color: red
+}
+
+.medium {
+    color: orange
+}
+
+.low {
+    color: rgb(156, 156, 57)
+}
+
+.in-progress {
+    color: blue;
+}
+
+.complete {
+    color: green;
+}
+
+.progress {}
+
+.addModal {
+    padding: 1.5rem;
+    font-size: 1.2rem;
+}
+
+.modal-content {
+    background: #F5F5F5;
+    border-radius: 31px;
 }
