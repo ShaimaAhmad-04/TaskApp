@@ -3,6 +3,10 @@ import { ReactiveFormsModule, FormGroup, Validators, FormControl } from '@angula
 import { Task } from '../../../../Interfaces/iTask';
 import { CommonModule, DatePipe } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { TasksServices } from '../../../../services/tasks-services';
+import { List } from '../../../../Interfaces/iList';
+import { LookUpServices } from '../../../../services/look-up-services';
+import { LookupsMajorCodes } from '../../../enums/enums';
 
 @Component({
   selector: 'app-home-page',
@@ -15,13 +19,18 @@ export class HomePage {
 
   @ViewChild('closeAddModal') closeAddModal: ElementRef | undefined;
 
-  constructor(private _datePipe: DatePipe) { }
+  constructor(private _datePipe: DatePipe,
+    private _taskService: TasksServices,
+    private _lookupService: LookUpServices
+  ) { }
 
-  Priorities = [
-    { id: 1, name: "High" },
-    { id: 2, name: "Medium" },
-    { id: 3, name: "Low" }
-  ];
+  ngOnInit() {
+    this.loadTasks()
+    this.loadPriorities()
+
+  }
+
+  Priorities: List[] = [];
 
 
   Status = [
@@ -32,53 +41,50 @@ export class HomePage {
 
   paginationConfig = { itemsPerPage: 3, currentPage: 1 };
 
-  Tasks: Task[] = [
-    {
-      Id: 1,
-      Name: "study algo",
-      Description: "Review algorithms chapters and solve practice problems.",
-      DeadLine: new Date(2025, 8, 27), // September
-      PriorityId: this.Priorities[1].id,
-      PriorityName: this.Priorities[1].name,
-      IsComplete: true
-    },
-    {
-      Id: 2,
-      Name: "clean the house",
-      Description: "Vacuum, dust, and organize all rooms.",
-      DeadLine: new Date(2025, 8, 27), // September
-      PriorityId: this.Priorities[2].id,
-      PriorityName: this.Priorities[2].name,
-      IsComplete: false
-    },
-    {
-      Id: 3,
-      Name: "grocery shopping",
-      Description: "Buy vegetables, fruits, and other essentials.",
-      DeadLine: new Date(2025, 8, 27), // September
-      PriorityId: this.Priorities[0].id,
-      PriorityName: this.Priorities[0].name,
-      IsComplete: true
-    },
-    {
-      Id: 4,
-      Name: "pay electricity bill",
-      Description: "Pay the electricity bill online before due date.",
-      DeadLine: new Date(2025, 8, 27), // September
-      PriorityId: this.Priorities[2].id,
-      PriorityName: this.Priorities[2].name,
-      IsComplete: false
-    },
-    {
-      Id: 5,
-      Name: "prepare presentation",
-      Description: "Create slides for Monday's meeting.",
-      DeadLine: new Date(2025, 8, 27), // September
-      PriorityId: this.Priorities[0].id,
-      PriorityName: this.Priorities[0].name,
-      IsComplete: false
-    }
-  ];
+  Tasks: Task[] = [];
+
+  loadTasks() {
+    this.Tasks = []
+    this._taskService.getAll().subscribe(
+      {
+        next: (res: any) => {
+          if (res.length > 0) {
+            res.forEach((task: any) => {
+              let newTask: Task = {
+                Id: task.id,
+                Name: task.name,
+                Description: task.description,
+                PriorityId: task.priorityId,
+                PriorityName: task.priorityName,
+                DeadLine: task.deadline,
+                IsComplete: task.isComplete
+              }
+              this.Tasks.push(newTask)
+            });
+          }
+        }
+      }
+    )
+
+  }
+
+  loadPriorities() {
+    this.Priorities = [
+      { Id: null, Name: "choose priority" }
+    ]
+
+    this._lookupService.getPrios(LookupsMajorCodes.priorities).subscribe({
+      next: (res: any) => {
+        if (res?.length > 0) {
+          res.forEach((prio: any) => {
+            this.Priorities.push({ Id: prio.id, Name: prio.name })
+          })
+        }
+      },
+      error: err => console.log(err.message)
+    })
+
+  }
 
   addTaskForm: FormGroup = new FormGroup({
     Id: new FormControl(null),
@@ -90,46 +96,48 @@ export class HomePage {
   })
 
 
-  addEditTask(taskId?: Number) {
+  addEditTask() {
 
+    let taskId = this.addTaskForm.value.Id ?? 0;
 
-    if (taskId == null) {
+    let task: Task = {
+      Id: taskId,
+      Name: this.addTaskForm.value.Name,
+      Description: this.addTaskForm.value.Description,
+      DeadLine: this.addTaskForm.value.DeadLine,
+      PriorityId: this.addTaskForm.value.PriorityId,
+      IsComplete: this.addTaskForm.value.IsComplete
+    };
 
-      if (this.addTaskForm.valid) {
-
-        // add a new task
-        let newTask: Task = {
-          Id: this.Tasks.length + 1,
-          Name: this.addTaskForm.get("Name")?.value,
-          Description: this.addTaskForm.get("Description")?.value,
-          IsComplete: false,
-          DeadLine: this.addTaskForm.get("DeadLine")?.value,
-          PriorityId: this.addTaskForm.get("PriorityId")?.value,
-        }
-        this.Tasks.push(newTask)
-        this.closeAddModal?.nativeElement.click()
-        this.clearAddForm()
+    if (this.addTaskForm.valid) {
+      if (taskId === 0) {
+        // ✅ Add
+        this._taskService.add(task).subscribe({
+          next: res => {
+            this.loadTasks();
+            this.closeAddModal?.nativeElement.click();
+            this.clearAddForm();
+          },
+          error: err =>
+            console.log(err.error?.message ?? err.error ?? "Unexpected Error")
+        });
+      } else {
+        // ✅ Update
+        this._taskService.update(task).subscribe({
+          next: res => {
+            this.loadTasks();
+            this.closeAddModal?.nativeElement.click();
+            this.clearAddForm();
+          },
+          error: err => console.log(err.error?.message ?? err.message)
+        });
       }
-    }
-    else {
-      //edit task
-      let taskToEdit = this.Tasks.find(x => x.Id === taskId)
-
-      if (taskToEdit) {
-        taskToEdit.Name = this.addTaskForm.get('Name')?.value;
-        taskToEdit.Description = this.addTaskForm.get('Description')?.value;
-        taskToEdit.DeadLine = this.addTaskForm.get('DeadLine')?.value;
-        taskToEdit.PriorityId = this.addTaskForm.get('PriorityId')?.value;
-        taskToEdit.PriorityName = this.Priorities[this.addTaskForm.get('PriorityId')?.value - 1].name,
-          taskToEdit.IsComplete = this.addTaskForm.get('IsComplete')?.value;
-      }
-      this.closeAddModal?.nativeElement.click()
-      this.clearAddForm()
     }
   }
 
 
-  PatchForm(taskId?: Number) {
+
+  PatchForm(taskId?: number) {
     // this.addEditTask(taskId)
     let taskToEdit = this.Tasks.find(x => x.Id === taskId)
 
@@ -142,8 +150,8 @@ export class HomePage {
       IsComplete: taskToEdit?.IsComplete
     })
   }
-
-  finishTask(taskId: Number) {
+  // connnnect with backendddd
+  finishTask(taskId: number) {
     var doneTask = this.Tasks.find(x => x.Id === taskId)
 
     if (doneTask)
@@ -151,15 +159,17 @@ export class HomePage {
 
   }
 
-  deleteTask(taskId: Number) {
+  deleteTask(taskId: number) {
     var delTask = this.Tasks.find(x => x.Id === taskId)
 
-    if (delTask)
-    {
-      let index = this.Tasks.indexOf(delTask)
-       this.Tasks.splice(index,1)
+    if (delTask) {
+      this._taskService.delete(taskId).subscribe({
+        next: res => this.loadTasks(),
+        error: err => console.log(err.messages)
+      })
     }
-}
+  }
+
 
   clearAddForm() {
     this.addTaskForm.reset()

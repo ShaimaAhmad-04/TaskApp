@@ -42,8 +42,8 @@
                                 class="bi bi-pen"
                                 title="Edit"></i></button>
 
-                        <button type="button" class="btn " 
-                        style="color: red;" (click)="deleteTask(task.Id)">
+                        <button type="button" class="btn "
+                            style="color: red;" (click)="deleteTask(task.Id)">
                             <i
                                 class="bi bi-trash"
                                 title="Delete"></i></button>
@@ -52,12 +52,12 @@
 
                 </div>
                 <!-- card body -->
-                <div class="card-body">
+                <div class="card-body" [class.done]="task.IsComplete ">
                     <span><strong>Description:</strong>
                         {{task.Description}}</span>
                 </div>
                 <!-- card footer -->
-                <div class="card-footer">
+                <div class="card-footer" [class.done]="task.IsComplete ">
                     <div class="due-date">Due: {{task.DeadLine |
                         date:"dd/MM/yyyy"}} </div>
                     <div class="priority"> Priority:
@@ -125,7 +125,7 @@
                                 formControlName="PriorityId">
                                 @for (prio of Priorities ; track prio){
                                 <option
-                                    [ngValue]="prio.id">{{prio.name}}</option>
+                                    [ngValue]="prio.Id">{{prio.Name}}</option>
                                 }
                             </select>
                         </div>
@@ -142,7 +142,7 @@
                     <button type="button" class="btn btn-secondary"
                         data-bs-dismiss="modal" #closeAddModal>Close</button>
                     <button type="button" class="btn btn-primary"
-                        (click)="addEditTask(this.addTaskForm.get('Id')?.value)">Save
+                        (click)="addEditTask()">Save
                         changes</button>
                 </div>
             </div>

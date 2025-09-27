@@ -1,7 +1,7 @@
 export interface Task {
 
 
-    Id: Number,
+    Id: number,
     Name: string,
     Description?: string,
     DeadLine?: Date ,
