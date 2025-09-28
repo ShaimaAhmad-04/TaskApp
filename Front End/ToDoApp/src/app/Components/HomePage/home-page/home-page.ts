@@ -7,6 +7,8 @@ import { TasksServices } from '../../../../services/tasks-services';
 import { List } from '../../../../Interfaces/iList';
 import { LookUpServices } from '../../../../services/look-up-services';
 import { LookupsMajorCodes } from '../../../enums/enums';
+import { routes } from '../../../app.routes';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
@@ -21,8 +23,10 @@ export class HomePage {
 
   constructor(private _datePipe: DatePipe,
     private _taskService: TasksServices,
-    private _lookupService: LookUpServices
+    private _lookupService: LookUpServices,
   ) { }
+
+
 
   ngOnInit() {
     this.loadTasks()

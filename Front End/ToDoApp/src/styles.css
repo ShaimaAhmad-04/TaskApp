@@ -8,3 +8,41 @@ body {
      background: linear-gradient(to bottom, #1b1b56, #786deb) ;
 
 }
+.card {
+
+    display: flex;
+    margin: 1%;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    font-family: cursive;
+
+}
+.card-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.card-body,
+.card-header,
+.card-footer {
+    width: 100%
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.title {
+    border: none;
+    font-weight: bold;
+    color: #46419b;
+    font-family: cursive;
+
+}
+
+label {
+    color: #46419b;
+    font-family: cursive;
+}
