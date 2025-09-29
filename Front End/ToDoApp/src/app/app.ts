@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { HomePage } from "./Components/HomePage/home-page/home-page";
 
 @Component({
@@ -11,10 +11,17 @@ import { HomePage } from "./Components/HomePage/home-page/home-page";
 export class App {
   protected readonly title = signal('ToDoApp');
 
-  constructo() {
+  constructor(private _route: Router) {
 
   }
   currentPage: string = "";
-  showLogin: boolean = true
+  showDropdown() {
 
+    return !!localStorage.getItem('token');
+  }
+
+  signOut() {
+    localStorage.clear()
+    this._route.navigate(["login"])
+  }
 }

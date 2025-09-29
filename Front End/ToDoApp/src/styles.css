@@ -46,3 +46,6 @@ label {
     color: #46419b;
     font-family: cursive;
 }
+.required {
+    border-color: red;
+}

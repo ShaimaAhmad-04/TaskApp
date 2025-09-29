@@ -5,8 +5,8 @@ using System.Security.Claims;
 using To_Do_App.DTOs.TaskDTO;
 namespace To_Do_App.Model;
 
-     //[Authorize]
-    [Route("api/[controller]")]
+[Authorize]
+[Route("api/[controller]")]
     [ApiController]
     public class TaskController : ControllerBase
     {
@@ -21,12 +21,12 @@ namespace To_Do_App.Model;
         public IActionResult GetAll([FromQuery]FilterTaskDTO? taskDTO)
         {
           try {   
-            //var UserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)); //logged in userID
+            var UserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)); //logged in userID
 
              var task = from taskItem in _DbContext.Tasks
                     from priority in _DbContext.Lookups.Where(x=> x.Id == taskItem.PriorityId).DefaultIfEmpty()
                     where
-                        //(taskItem.UserId == UserId) &&
+                        (taskItem.UserId == UserId) &&
                         (taskDTO.isComplete == null || taskDTO.isComplete == taskItem.isComplete) &&
                         (taskDTO.Deadline == null || taskDTO.Deadline == taskItem.Deadline) &&
                         (taskDTO.priorityId == null || taskDTO.priorityId == taskItem.PriorityId)    
@@ -39,8 +39,8 @@ namespace To_Do_App.Model;
                     priorityName = priority.Name,
                     priorityId = taskItem.PriorityId,
                     isComplete = taskItem.isComplete,
-                    //UserID = (long)taskItem.UserId,
-                    //UserName = taskItem.User.Name  ,
+                    UserID = (long)taskItem.UserId,
+                    UserName = taskItem.User.Name  ,
                     Deadline = taskItem.Deadline,
                };
             
@@ -74,8 +74,8 @@ namespace To_Do_App.Model;
                        priorityName = taskItem.lookup.Name,
                        priorityId = taskItem.PriorityId,
                        isComplete = taskItem.isComplete,
-                       //UserID = (long)taskItem.UserId,
-                       //UserName = taskItem.User.Name,
+                       UserID = (long)taskItem.UserId,
+                       UserName = taskItem.User.Name,
                        Deadline = taskItem.Deadline,
                    };
 
@@ -95,7 +95,7 @@ namespace To_Do_App.Model;
         public IActionResult Add([FromBody]SaveTaskDTO addTaskDTO)
         {
           try {  
-            //var UserID = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var UserID = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
                 var newTask = new TaskItem
                 {
@@ -105,7 +105,7 @@ namespace To_Do_App.Model;
                     PriorityId = addTaskDTO.priorityId,
                     isComplete = addTaskDTO.isComplete,
                     Deadline = addTaskDTO.Deadline,
-                    //UserId = UserID
+                    UserId = UserID
                 };
 
                 _DbContext.Tasks.Add(newTask);
@@ -124,7 +124,7 @@ namespace To_Do_App.Model;
     public IActionResult Update([FromBody]SaveTaskDTO taskDTO)
     {
       try {
-            //var UserID = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var UserID = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
             var newTask = _DbContext.Tasks.FirstOrDefault(task => task.Id == taskDTO.Id);// && task.UserId == UserID ;
 
@@ -151,7 +151,7 @@ namespace To_Do_App.Model;
      public IActionResult Delete([FromQuery]long ? Id)
     {
        try {
-            //var UserID = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var UserID = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
             var task = _DbContext.Tasks.FirstOrDefault(x => x.Id == Id );// && x.UserId == UserID
 

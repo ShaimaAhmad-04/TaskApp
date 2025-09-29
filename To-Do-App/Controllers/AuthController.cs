@@ -80,7 +80,7 @@ namespace To_Do_App.Controllers
 
             var token = GenerateToken(userCheck);
 
-                return Ok(token); 
+                return Ok(new {token = token}); 
             }
 
             catch (Exception ex)
