@@ -58,6 +58,7 @@ namespace To_Do_App.Model;
     }
 
     // get all tasks for a user 
+    [Authorize]
     [HttpGet("GetId")]
     public IActionResult GetId([FromQuery] long? Id)
     {
@@ -91,7 +92,8 @@ namespace To_Do_App.Model;
         }
 
     }
-        [HttpPost("Add")]
+    [Authorize]
+    [HttpPost("Add")]
         public IActionResult Add([FromBody]SaveTaskDTO addTaskDTO)
         {
           try {  
@@ -119,7 +121,7 @@ namespace To_Do_App.Model;
     }
 
 
-
+    [Authorize]
     [HttpPut("Update")]
     public IActionResult Update([FromBody]SaveTaskDTO taskDTO)
     {
@@ -147,6 +149,7 @@ namespace To_Do_App.Model;
 
     }
 
+    [Authorize]
     [HttpDelete("Delete")]
      public IActionResult Delete([FromQuery]long ? Id)
     {

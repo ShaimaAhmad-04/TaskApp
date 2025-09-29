@@ -9,6 +9,6 @@ export class UserServices {
 
   reset(user:any){
 
-    return this._http.put("https://localhost:44327/api/Users/resetPassword",user)
+    return this._http.put("https://localhost:44327/api/Users/forgotPassword",user)
   }
 }
