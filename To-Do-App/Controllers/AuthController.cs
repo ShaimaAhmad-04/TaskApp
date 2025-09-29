@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using To_Do_App.DTOs.TaskDTO;
 using To_Do_App.DTOs.UserDTO;
 using To_Do_App.Model;
 
@@ -76,11 +77,31 @@ namespace To_Do_App.Controllers
 
             if (!BCrypt.Net.BCrypt.Verify(userLogInDTO.Password, userCheck.HashedPassword))
                 return BadRequest("Invalid username or password");
+                // Check if user has any tasks
+                var hasTasks = _DbContext.Tasks.Any(t => t.UserId == userCheck.Id);
 
+                // If no tasks, create a special "Welcome" task
+                if (!hasTasks)
+                {
+                    var welcomeTask = new TaskItem
+                    {
+                        Name = "Start by adding your first task",
+                        //Description = $"Hello {userCheck.Name}, this is your first task. Let's get started!",
+                        //PriorityId = null, // or default
+                        //Deadline = null,
+                        //isComplete = false,
+                        UserId = userCheck.Id,
+                    };
+                    _DbContext.Tasks.Add(welcomeTask);
+                    _DbContext.SaveChanges();
+                }
 
-            var token = GenerateToken(userCheck);
-
-                return Ok(new {token = token}); 
+                var token = GenerateToken(userCheck);
+                return Ok(new
+                {
+                    token = token,
+                    userId = userCheck.Id
+                });
             }
 
             catch (Exception ex)

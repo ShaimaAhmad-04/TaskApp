@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { LoginServices } from '../../../../services/login-services';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule,],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
@@ -34,10 +34,12 @@ export class Login {
       this._loginServices.Login(loginObj).subscribe({
         next: (res: any) => {
           localStorage.setItem("token", res.token)
+          alert(res.message)
           this._router.navigate(["homePage"]);
+
         }
         ,
-        error: err => console.log(err.message)
+        error: err => alert(err.message)
       })
     }
 

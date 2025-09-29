@@ -1,13 +1,14 @@
 body {
-     background: linear-gradient(to bottom, #1b1b56, #786deb)
+    background: linear-gradient(to bottom, #1b1b56, #786deb)
 }
 
 html,
 body {
-     height: 100vh;
-     background: linear-gradient(to bottom, #1b1b56, #786deb) ;
+    height: 100vh;
+    background: linear-gradient(to bottom, #1b1b56, #786deb);
 
 }
+
 .card {
 
     display: flex;
@@ -18,11 +19,13 @@ body {
     font-family: cursive;
 
 }
+
 .card-container {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
 .card-body,
 .card-header,
 .card-footer {
@@ -34,6 +37,7 @@ body {
     align-items: center;
     justify-content: space-between;
 }
+
 .title {
     border: none;
     font-weight: bold;
@@ -46,6 +50,59 @@ label {
     color: #46419b;
     font-family: cursive;
 }
+
 .required {
     border-color: red;
+}
+
+.login-wrapper {
+    /* height: 100vh; */
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.login-card {
+    width: 100%;
+    background-color: white;
+    border-radius: 5px;
+    justify-content: center;
+}
+
+.login-title {
+    border: none;
+    font-weight: bold;
+    color: #46419b;
+    font-family: cursive;
+
+    text-align: center;
+
+}
+
+.login-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-button {
+    width: 19%;
+    border-radius: 54px;
+    background-color: #5952b9;
+    color: white;
+
+}
+
+.reset-button:hover,
+.signup-button:hover {
+    font-weight: bold;
+    color: #5952b9;
+    text-decoration: underline;
+}
+
+.reset-button,
+.signup-button {
+    color: #4c43c5;
 }
