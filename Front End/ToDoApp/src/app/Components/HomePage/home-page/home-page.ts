@@ -85,7 +85,7 @@ export class HomePage {
           })
         }
       },
-      error: err => console.log(err.message)
+      error: err => alert((err.error.message ?? err.error ?? "Unexpected Error"))
     })
 
   }

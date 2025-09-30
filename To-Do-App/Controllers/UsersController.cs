@@ -28,6 +28,9 @@ namespace To_Do_App.Controllers
 
                 var user = dbContext.Users.FirstOrDefault(x => x.Id == userId);
 
+                if (user == null)
+                    return NotFound(new { message = "User not found" });
+
                 return Ok(user);
             }
 
@@ -44,19 +47,20 @@ namespace To_Do_App.Controllers
                 try
                 {
                      var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                    var user = dbContext.Users.FirstOrDefault(x => x.Id == updateUserDTO.Id);
+                    var user = dbContext.Users.FirstOrDefault(x => x.Id == userId);
 
                     if (user == null)
                         return BadRequest(new { message = "User not found" });
 
                     // check if email is used 
-                    if (dbContext.Users.FirstOrDefault(x => x.Email == updateUserDTO.Email) == null)//&& INSTEAD OF CHECKING LIKE THIS, MAKE EMAIL AND USERNAME UNIQUE ATTRIBUTES
+                    if (dbContext.Users.Any(x => x.Email == updateUserDTO.Email && x.Id != userId))//&& INSTEAD OF CHECKING LIKE THIS, MAKE EMAIL AND USERNAME UNIQUE ATTRIBUTES
                         return BadRequest(new { message = "Email already used " });
 
 
 
-                    user.Name = updateUserDTO.Name;
-                    user.Email = updateUserDTO.Email;
+                    user.Name = string.IsNullOrWhiteSpace(updateUserDTO.Name) ? user.Name : updateUserDTO.Name;
+                    user.Email = string.IsNullOrWhiteSpace(updateUserDTO.Email) ? user.Email : updateUserDTO.Email;
+                    user.Bio = string.IsNullOrWhiteSpace(updateUserDTO.Bio) ? user.Bio : updateUserDTO.Bio;
 
 
 
@@ -71,7 +75,6 @@ namespace To_Do_App.Controllers
             }
         }
 
-        [Authorize]
         [HttpPut("forgotPassword")]
         public IActionResult forgotPassword([FromBody] forgotPasswordDTO updateUserDTO)
         {

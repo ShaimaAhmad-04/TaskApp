@@ -1,0 +1,55 @@
+<div class="page">
+    <div class="wrapper">
+        <div class="card row">
+
+            <!-- Centered Title -->
+            <div class="title col-12 mb-3" style="font-size: 2rem;">
+                Profile
+            </div>
+
+            <div [formGroup]="profileForm">
+                <!-- Name -->
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" id="name" class="form-control"
+                        formControlName="Name">
+                </div>
+
+                <!-- Email -->
+                <div class="mb-3 mt-1 col-12">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" id="email" class="form-control"
+                        formControlName="Email">
+                </div>
+
+                <!-- Bio -->
+                <div class="mb-3">
+                    <label for="bio" class="form-label">Bio</label>
+                    <textarea id="bio" rows="3" class="form-control"
+                        placeholder="What do you want to achieve with this app?"
+                        formControlName="Bio"></textarea>
+                </div>
+
+                <!-- Buttons -->
+                <div class="buttons">
+                    <!-- Edit / Save Button -->
+                    <div class="mb-3 col-12">
+                        <button type="button" class="btn reset-button"
+                            (click)="toggleEditSave()">
+                            {{ editSaveButton }}
+                        </button>
+                    </div>
+
+                    <!-- Conditional Button: Change Password or Cancel -->
+                    <div class="mb-3 col-12">
+                        @if(!isEditing) { <button type="button"
+                            class="btn reset-button">Change Password</button> }
+                        @else{ <button type="button" class="btn reset-button"
+                            (click)="cancelEdit()">Cancel Changes</button> }
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

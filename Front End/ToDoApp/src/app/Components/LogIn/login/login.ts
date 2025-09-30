@@ -17,7 +17,7 @@ export class Login {
 
   }
   loginForm = new FormGroup({
-    Email: new FormControl(null, [Validators.required]),
+    Email: new FormControl(null, [Validators.required, Validators.email]),
     Password: new FormControl(null, [Validators.required])
   })
 
@@ -34,12 +34,12 @@ export class Login {
       this._loginServices.Login(loginObj).subscribe({
         next: (res: any) => {
           localStorage.setItem("token", res.token)
-          alert(res.message)
           this._router.navigate(["homePage"]);
 
         }
         ,
-        error: err => alert(err.message)
+        error: err => alert(err.error.message ?? err.error ?? "Unexpected Error")
+
       })
     }
 
