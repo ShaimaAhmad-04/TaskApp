@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
-import { LoginServices } from '../../../../services/login-services';
+import { AuthServices } from '../../../../services/auth-services';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({
@@ -11,7 +11,7 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class Login {
 
-  constructor(private _loginServices: LoginServices,
+  constructor(private _authServices: AuthServices,
     private _router: Router
   ) {
 
@@ -31,18 +31,21 @@ export class Login {
         password: Password
       }
 
-      this._loginServices.Login(loginObj).subscribe({
+      this._authServices.Login(loginObj).subscribe({
         next: (res: any) => {
           localStorage.setItem("token", res.token)
           this._router.navigate(["homePage"]);
 
         }
         ,
-        error: err => alert(err.error.message ?? err.error ?? "Unexpected Error")
+        error: (err: any) => alert(err.error.message ?? err.error ?? "Unexpected Error")
 
       })
     }
 
+  }
+  signUpPage() {
+    this._router.navigate(["signUp"])
   }
 }
 

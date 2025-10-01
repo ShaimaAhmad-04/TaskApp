@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserServices } from '../../../../services/user-services';
 import { User } from '../../../../Interfaces/iUser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -10,7 +11,9 @@ import { User } from '../../../../Interfaces/iUser';
   styleUrl: './profile.css'
 })
 export class Profile {
-  constructor(private _userService: UserServices) { }
+  constructor(private _userService: UserServices,
+    private _router: Router
+  ) { }
 
   user: User = { Name: '', Email: '', Bio: '' }
   editSaveButton: string = "Edit Info"
@@ -25,7 +28,7 @@ export class Profile {
   ngOnInit() {
 
     this.profileForm.disable();
-    this._userService.get().subscribe({
+    this._userService.getInfo().subscribe({
       next: (res: any) => {
         this.user = {
           Name: res.name,
@@ -85,8 +88,10 @@ export class Profile {
     this.editSaveButton = "Edit Info";
   }
 
-  changePassword(){
+  changePassword() {
+        console.log("Change password clicked");
 
+    this._router.navigate(['reset-password'])
     
   }
 }

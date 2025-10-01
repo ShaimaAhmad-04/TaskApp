@@ -43,7 +43,7 @@
                     <!-- Conditional Button: Change Password or Cancel -->
                     <div class="mb-3 col-12">
                         @if(!isEditing) { <button type="button"
-                            class="btn reset-button">Change Password</button> }
+                            class="btn reset-button" (click)="changePassword()">Change Password</button> }
                         @else{ <button type="button" class="btn reset-button"
                             (click)="cancelEdit()">Cancel Changes</button> }
                     </div>

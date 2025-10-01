@@ -11,7 +11,7 @@
 
                 <!-- Email -->
                 <div class="mb-3 mt-1 col-12"
-                    [class.required]="this.loginForm.get('Email')?.touched && !this.loginForm.get('Email')">
+                    [class.required]="this.loginForm.get('Email')?.touched && !this.loginForm.get('Email')?.invalid">
                     <label for="exampleFormControlInput1"
                         class="form-label">Email
                         address</label>
@@ -23,7 +23,7 @@
 
                 <!-- Password -->
                 <div class="mb-3 mt-1 col-12"
-                    [class.required]="this.loginForm.get('Password')?.touched && !this.loginForm.get('Password')">
+                    [class.required]="this.loginForm.get('Password')?.touched && !this.loginForm.get('Password')?.invalid">
                     <label for="inputPassword"
                         class="form-label">Password</label>
                     <input type="password" class="form-control"
@@ -34,10 +34,10 @@
                 <!-- Forgot Password Button (Centered) -->
                 <div class="mb-3 col-12 text-center ">
                     <button type="button" class="btn reset-button"
-                        [routerLink]="['/signUp']">Forgot my
+                        [routerLink]="['/forgot-password']">Forgot my
                         password</button>
                     <br>
-                    <button type="button" class="btn signup-button">Dont have an
+                    <button type="button" class="btn signup-button" (click)="signUpPage()">Dont have an
                         account? Signup</button>
 
                 </div>
@@ -45,7 +45,7 @@
                 <!-- Login Button (Centered) -->
                 <div class="mb-3 col-12 text-center">
                     <button type="button"
-                        class="btn login-button"
+                        class="btn account-button"
                         (click)="login()">Login</button>
                 </div>
 

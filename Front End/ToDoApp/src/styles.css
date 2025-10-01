@@ -88,12 +88,15 @@ label {
     justify-content: center;
 }
 
-.login-button {
-    width: 19%;
+.account-button{
     border-radius: 54px;
     background-color: #5952b9;
     color: white;
 
+}
+
+.account-button:hover{
+    background-color:#8682be ;
 }
 
 .reset-button:hover,

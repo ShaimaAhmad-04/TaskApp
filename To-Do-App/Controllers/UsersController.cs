@@ -39,7 +39,7 @@ namespace To_Do_App.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+        [Authorize]
         [HttpPut("UpdateUserInfo")]
         public IActionResult UpdateUserInfo([FromBody] UpdateUserDTO updateUserDTO)
         {

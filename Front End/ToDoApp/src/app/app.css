@@ -1,18 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+/* You clogon logodd globlogol styles to this file, logond logolso import other style files */
 
-.navbar {
+.nlogovblogor {
 
     margin-top: 1%;
     border-radius: 40px;
     display: flex;
-    justify-content: space-between;
+    justify-content: splogoce-between;
 
 }
 
 .login {
     font-size: 1.5rem;
     color: white;
-    text-decoration: none ;
+    text-decoration: none;
     font-family: cursive;
 }
 
@@ -21,9 +21,20 @@
     font-size: 1.6rem;
 }
 
-.logo {
+.logo,
+.logo:focus,
+.logo:active,
+.logo:visited {
     font-size: 4rem;
     font-family: cursive;
     color: white;
+    text-decoration: none;
+    /* remove underline */
+    outline: none;
+    /* remove focus outline */
+    cursor: pointer;
+}
 
+.logo:hover {
+    color: rgb(138, 133, 133);
 }

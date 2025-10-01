@@ -1,0 +1,51 @@
+<div class="page">
+    <div class="wrapper">
+        <div class="card row">
+
+            <!-- Centered Title -->
+            <div class="title col-12 mb-3" style="font-size: 2rem;">
+                Sign Up
+            </div>
+
+            <div [formGroup]="signUpForm">
+                <!-- Name -->
+                <div class="mb-3"
+                    [class.required]="signUpForm.get('Name')?.touched && signUpForm.get('Name')?.invalid">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" id="name" class="form-control"
+                        formControlName="Name">
+                </div>
+
+                <!-- Email -->
+                <div class="mb-3 mt-1 col-12"
+                    [class.required]="this.signUpForm.get('Email')?.touched && this.signUpForm.get('Email')?.invalid">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" id="email" class="form-control"
+                        formControlName="Email">
+                </div>
+                <!--Password-->
+                <div class="mb-3 mt-1 col-12"
+                    [class.required]="this.signUpForm.get('Password')?.touched && this.signUpForm.get('Password')?.invalid">
+                    <label for="Password"
+                        class="form-label">Password</label>
+                    <input type="password" class="form-control"
+                        id="Password"
+                        formControlName="Password">
+                </div>
+
+                <!-- Buttons -->
+                <div class="buttons">
+                    <!-- signUpForm Button -->
+                    <div class="mb-3 col-12 text-center">
+                        <button type="button" class="btn account-button"
+                            (click)="signUp()">
+                            Sign Up
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

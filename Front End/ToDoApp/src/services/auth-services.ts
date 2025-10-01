@@ -5,13 +5,18 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class LoginServices {
+export class AuthServices {
 
   constructor(private _http: HttpClient) { }
 
   Login(loginForm: any) {
 
-    return this._http.post("https://localhost:44327/api/Auth/LogIn",loginForm)
+    return this._http.post("https://localhost:44327/api/Auth/LogIn", loginForm)
+  }
+
+  SignUp(signUpDTO: any) {
+
+    return this._http.post("https://localhost:44327/api/Auth/SignUp", signUpDTO)
   }
 
 }
