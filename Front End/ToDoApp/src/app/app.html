@@ -1,13 +1,14 @@
+
 <div class="container-fluid">
   <nav class="navbar navbar-expand-lg navbar-light">
     <div class="logo">
-      <a [routerLink]="isSignedIn ? ['/homePage'] : ['/login']"
+      <a [routerLink]="isSignedIn() ? ['/homePage'] : ['/login']"
         class="navbar-brand logo">
         ToDo
       </a>
     </div>
 
-    @if(isSignedIn)
+    @if(isSignedIn())
     { 
       <div class="dropdown ms-auto m-1">
       <div class="dropdown ms-auto m-2">
