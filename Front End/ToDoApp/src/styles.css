@@ -2,6 +2,10 @@ body {
     background: linear-gradient(to bottom, #1b1b56, #786deb)
 }
 
+.night{
+    background-color: black;
+}
+
 html,
 body {
     height: 100vh;
