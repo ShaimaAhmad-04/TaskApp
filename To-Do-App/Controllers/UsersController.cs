@@ -52,7 +52,7 @@ namespace To_Do_App.Controllers
                     if (user == null)
                         return BadRequest(new { message = "User not found" });
 
-                    // check if email is used 
+                    // check if email is used hahahahahahah
                     if (dbContext.Users.Any(x => x.Email == updateUserDTO.Email && x.Id != userId))//&& INSTEAD OF CHECKING LIKE THIS, MAKE EMAIL AND USERNAME UNIQUE ATTRIBUTES
                         return BadRequest(new { message = "Email already used " });
 
